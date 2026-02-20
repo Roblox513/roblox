@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rewards Center</title>
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #111827;
+        }
+
+        .hero-bg {
+            background: linear-gradient(rgba(0,0,0,.85), rgba(0,0,0,.85)),
+            url('Gemini_Generated_Image_frbs92frbs92frbs.png');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+        }
+
+        /* Sticky CTA hide animation */
+        #stickyCta.hidden-bar {
+            transform: translateY(100%);
+        }
+    </style>
+</head>
+
+<body class="text-white">
+
+<!-- HERO -->
+<header class="hero-bg flex items-center justify-center text-center p-6">
+    <div>
+        <h1 class="text-4xl md:text-6xl font-extrabold text-orange-400 mb-4">
+            Earn Rewards Easily
+        </h1>
+
+        <p class="text-lg md:text-2xl text-gray-300 mb-8">
+            Complete simple steps and unlock exclusive rewards
+        </p>
+
+        <button class="cta-btn bg-orange-600 hover:bg-orange-500 transition
+                       text-white font-bold text-2xl px-10 py-4 rounded-xl shadow-lg">
+            Get Started
+        </button>
+
+        <p class="text-sm text-gray-400 mt-4">
+            🔒 No password required • Safe & secure
+        </p>
+    </div>
+</header>
+
+<!-- FEATURES -->
+<section class="max-w-5xl mx-auto p-6 my-12 grid grid-cols-1 md:grid-cols-4 gap-6">
+    <div class="bg-gray-800 p-6 rounded-xl text-center">
+        <i class="fa-solid fa-shield-halved text-4xl text-orange-400 mb-4"></i>
+        <h3 class="font-bold text-xl mb-2">Safe</h3>
+        <p class="text-gray-300">No personal data</p>
+    </div>
+
+    <div class="bg-gray-800 p-6 rounded-xl text-center">
+        <i class="fa-solid fa-bolt text-4xl text-orange-400 mb-4"></i>
+        <h3 class="font-bold text-xl mb-2">Fast</h3>
+        <p class="text-gray-300">Instant access</p>
+    </div>
+
+    <div class="bg-gray-800 p-6 rounded-xl text-center">
+        <i class="fa-solid fa-gift text-4xl text-orange-400 mb-4"></i>
+        <h3 class="font-bold text-xl mb-2">Rewards</h3>
+        <p class="text-gray-300">Multiple offers</p>
+    </div>
+
+    <div class="bg-gray-800 p-6 rounded-xl text-center">
+        <i class="fa-solid fa-user-check text-4xl text-orange-400 mb-4"></i>
+        <h3 class="font-bold text-xl mb-2">Easy</h3>
+        <p class="text-gray-300">Anyone can do it</p>
+    </div>
+</section>
+
+<!-- MODAL -->
+<div id="modal" class="fixed inset-0 bg-black bg-opacity-90 hidden items-center justify-center p-4 z-50">
+    <div class="bg-gray-900 w-full max-w-2xl h-[75vh] rounded-xl relative p-6">
+        <button id="closeModal" class="absolute top-3 right-4 text-3xl">&times;</button>
+
+        <div id="locker" class="h-full flex flex-col items-center justify-center text-gray-400 gap-3">
+            <i class="fa-solid fa-circle-notch fa-spin text-4xl text-orange-400"></i>
+            <p>Connecting to offers…</p>
+            <p class="text-sm">Step 1 of 3</p>
+        </div>
+    </div>
+</div>
+
+<!-- STICKY BOTTOM CTA -->
+<div id="stickyCta"
+     class="fixed bottom-0 left-0 w-full bg-gray-900 bg-opacity-95
+            border-t border-gray-700 z-40 transition-transform duration-300">
+
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div class="text-sm md:text-base text-gray-300">
+            🎁 Rewards available now
+        </div>
+
+        <button class="cta-btn bg-orange-600 hover:bg-orange-500 transition
+                       text-white font-bold px-5 py-2 md:px-8 md:py-3 rounded-xl shadow-lg">
+            Get Started <span id="countdown" class="ml-2 text-sm">(15:00)</span>
+        </button>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="text-center text-xs text-gray-500 py-8">
+    © 2026 Rewards Platform • Not affiliated with any brand
+</footer>
+
+<!-- JAVASCRIPT -->
+<script>
+const modal = document.getElementById("modal");
+const closeModal = document.getElementById("closeModal");
+const buttons = document.querySelectorAll(".cta-btn");
+const locker = document.getElementById("locker");
+const stickyCta = document.getElementById("stickyCta");
+
+let loaded = false;
+
+/* Open modal + load locker */
+buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+        stickyCta.style.display = "none";
+
+        if (!loaded) {
+            const config = document.createElement("script");
+            config.innerHTML = 'var kaxSR_ndi_gprAXc={"it":4531733,"key":"8356a"};';
+
+            const main = document.createElement("script");
+            main.src = "https://da4talg8ap14y.cloudfront.net/9e2c9f2.js";
+            main.onload = () => {
+                try { _Ew(); } catch(e) {
+                    locker.innerHTML = "Offer failed to load";
+                }
+            };
+
+            locker.appendChild(config);
+            locker.appendChild(main);
+            loaded = true;
+        }
+    });
+});
+
+/* Close modal */
+closeModal.addEventListener("click", () => {
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+    stickyCta.style.display = "block";
+});
+
+/* Auto-hide sticky CTA on scroll */
+let lastScrollY = window.scrollY;
+window.addEventListener("scroll", () => {
+    if (window.scrollY > lastScrollY && window.scrollY > 150) {
+        stickyCta.classList.add("hidden-bar");
+    } else {
+        stickyCta.classList.remove("hidden-bar");
+    }
+    lastScrollY = window.scrollY;
+});
+
+/* Countdown timer */
+let timeLeft = 15 * 60;
+const countdownEl = document.getElementById("countdown");
+
+setInterval(() => {
+    if (timeLeft <= 0) return;
+    timeLeft--;
+    const m = String(Math.floor(timeLeft / 60)).padStart(2, "0");
+    const s = String(timeLeft % 60).padStart(2, "0");
+    countdownEl.textContent = `(${m}:${s})`;
+}, 1000);
+
+/* AdBlock detection */
+setTimeout(() => {
+    if (typeof _Ew === "undefined" && loaded) {
+        locker.innerHTML = "⚠️ Please disable AdBlock to continue";
+    }
+}, 3000);
+</script>
+
+</body>
+</html>
